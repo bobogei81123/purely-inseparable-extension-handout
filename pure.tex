@@ -1,0 +1,457 @@
+\documentclass[a4paper]{article}
+
+%%%%%%%%%%%%%%%%%%page size%%%%%%%%%%%%%%%%%%
+% \paperwidth=65cm
+% \paperheight=160cm
+
+%%%%%%%%%%%%%%%%%%%Package%%%%%%%%%%%%%%%%%%%
+\renewcommand{\baselinestretch}{1.1}
+\usepackage[margin=3cm]{geometry}
+\usepackage{mathtools,amsthm,amssymb}
+\usepackage{centernot}
+\usepackage{yhmath}
+\usepackage{graphicx}
+\usepackage{fontspec}
+\usepackage{titlesec}
+\usepackage{titling}
+\usepackage{fancyhdr}
+\usepackage{tabularx}
+\usepackage[square, comma, numbers, super, sort&compress]{natbib}
+\usepackage[unicode, pdfborder={0 0 0}, bookmarksdepth=-1]{hyperref}
+\usepackage[usenames, dvipsnames]{color}
+\usepackage[shortlabels, inline]{enumitem}
+\setenumerate{itemsep=0.2em,topsep=0.25em}
+\setitemize{itemsep=0.2em,topsep=0.25em}
+\setdescription{itemsep=0.2em,topsep=0.25em}
+\usepackage{xpatch}
+\usepackage{relsize}
+%\usepackage{parskip}
+\parskip=0.5em
+
+%\usepackage{tabto}     
+%\usepackage{soul}      
+%\usepackage{ulem}      
+%\usepackage{wrapfig}   
+%\usepackage{floatflt}  
+\usepackage{float}     
+\usepackage{caption}   
+\usepackage{subcaption}
+%\usepackage{setspace}  
+\usepackage{mdframed}  
+%\usepackage{multicol}  
+%\usepackage[abbreviations]{siunitx}
+%\usepackage{dsfont}   
+
+%%%%%%%%%%%%%%%%%%%TikZ%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{tikz}
+\usepackage{tikz-cd}
+%\usepackage{circuitikz}
+\usetikzlibrary{calc}
+\usetikzlibrary{arrows}
+\usetikzlibrary{shapes}
+\usetikzlibrary{positioning}
+\usetikzlibrary{decorations.pathmorphing}
+
+\tikzstyle{every picture}+=[remember picture]
+
+%%%%%%%%%%%%%%中文 Environment%%%%%%%%%%%%%%%
+\usepackage[CheckSingle, CJKmath]{xeCJK}  % xelatex 中文
+\usepackage{CJKulem}	% 中文字裝飾
+%\setCJKmainfont[BoldFont=cwTeX Q Hei]{cwTeX Q Ming}
+%\setCJKsansfont[BoldFont=cwTeX Q Hei]{cwTeX Q Ming}
+%\setCJKmonofont[BoldFont=cwTeX Q Hei]{cwTeX Q Ming}
+
+%%%%%%%%%%%%%%%%%font size%%%%%%%%%%%%%%%%%%%
+%\def\normalsize{\fontsize{10}{15}\selectfont}
+%\def\large{\fontsize{12}{18}\selectfont}
+%\def\Large{\fontsize{14}{21}\selectfont}
+%\def\LARGE{\fontsize{16}{24}\selectfont}
+%\def\huge{\fontsize{18}{27}\selectfont}
+%\def\Huge{\fontsize{20}{30}\selectfont}
+
+%%%%%%%%%%%%%%%Theme Input%%%%%%%%%%%%%%%%%%%
+%\input{themes/chapter/neat}
+%\input{themes/env/problist}
+
+%%%%%%%%%%%titlesec settings%%%%%%%%%%%%%%%%%
+%\titleformat{\chapter}{\bf\Huge}
+            %{\arabic{section}}{0em}{}
+%\titleformat{\section}{\centering\Large}
+            %{\arabic{section}}{0em}{}
+%\titleformat{\subsection}{\large}
+            %{\arabic{subsection}}{0em}{}
+%\titleformat{\subsubsection}{\bf\normalsize}
+            %{\arabic{subsubsection}}{0em}{}
+%\titleformat{command}[shape]{format}{label}
+            %{gutter}{before}[after]
+
+%%%%%%%%%%%%variable settings%%%%%%%%%%%%%%%%
+%\numberwithin{equation}{section}
+%\setcounter{secnumdepth}{4}
+%\setcounter{tocdepth}{1}
+%\setcounter{section}{0}
+%\graphicspath{{images/}}
+
+%%%%%%%%%%%%%%%page settings%%%%%%%%%%%%%%%%%
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+\setlength{\headheight}{15pt}  % with titling
+\setlength{\droptitle}{-2.5cm}
+%\posttitle{\par\end{center}}  % distance between title and content
+\parindent=0pt % indent size
+%\parskip=1ex    % line space
+%\pagestyle{empty}  % empty: no page number
+%\pagestyle{fancy}  % fancy: fancyhdr
+
+% use with fancygdr
+%\lhead{\leftmark}
+%\chead{}
+%\rhead{}
+%\lfoot{}
+%\cfoot{}
+%\rfoot{\thepage}
+%\renewcommand{\headrulewidth}{0.4pt}
+%\renewcommand{\footrulewidth}{0.4pt}
+
+%\fancypagestyle{firststyle}
+%{
+  %\fancyhf{}
+  %\fancyfoot[C]{\footnotesize Page \thepage\ of \pageref{LastPage}}
+  %\renewcommand{\headrule}{\rule{\textwidth}{\headrulewidth}}
+%}
+
+%%%%%%%%%%%%%%%renew command%%%%%%%%%%%%%%%%%
+% \renewcommand{\contentsname}{Table of Content}
+% \renewcommand{\refname}{Reference}
+\renewcommand{\abstractname}{\LARGE Abstract}
+
+%%%%%%%%symbol and function settings%%%%%%%%%
+\DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
+\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
+\DeclarePairedDelimiter{\inpd}{\langle}{\rangle} % inner product
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
+\DeclareMathOperator{\adj}{adj}
+\DeclareMathOperator{\sech}{sech}
+\DeclareMathOperator{\csch}{csch}
+\DeclareMathOperator{\arcsec}{arcsec}
+\DeclareMathOperator{\arccot}{arccot}
+\DeclareMathOperator{\arccsc}{arccsc}
+\DeclareMathOperator{\arccosh}{arccosh}
+\DeclareMathOperator{\arcsinh}{arcsinh}
+\DeclareMathOperator{\arctanh}{arctanh}
+\DeclareMathOperator{\arcsech}{arcsech}
+\DeclareMathOperator{\arccsch}{arccsch}
+\DeclareMathOperator{\arccoth}{arccoth}
+\newcommand{\np}[1]{\\[{#1}] \indent}
+\newcommand{\tr}[1]{{#1}^\mathrm{t}}
+%%%% Geometry Symbol %%%%
+\newcommand{\degree}{^\circ}
+\newcommand{\Arc}[1]{\wideparen{{#1}}}
+\newcommand{\Line}[1]{\overleftrightarrow{{#1}}}
+\newcommand{\Ray}[1]{\overrightarrow{{#1}}}
+\newcommand{\Segment}[1]{\overline{{#1}}}
+%%%% Math symbol %%%%
+\newcommand{\defeq}{\triangleq}
+\newcommand{\Nb}{\mathbb{N}}
+\newcommand{\Zb}{\mathbb{Z}}
+\newcommand{\Qb}{\mathbb{Q}}
+\newcommand{\Rb}{\mathbb{R}}
+\newcommand{\Cb}{\mathbb{C}}
+\newcommand{\Hb}{\mathbb{H}}
+\newcommand{\Fb}{\mathbb{F}}
+\newcommand{\Fbx}{\mathbb{F}^\times}
+\newcommand{\Qbx}{\mathbb{Q}^\times}
+\newcommand{\Rbx}{\mathbb{R}^\times}
+\newcommand{\Cbx}{\mathbb{C}^\times}
+\newcommand{\Hbx}{\mathbb{H}^\times}
+
+\usetikzlibrary{matrix}
+
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\Image}{Im}
+\DeclareMathOperator{\Char}{char}
+\DeclareMathOperator{\Fix}{Fix}
+\DeclareMathOperator{\Inn}{Inn}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Isom}{Isom}
+\DeclareMathOperator{\Tor}{Tor}
+\DeclareMathOperator{\Mor}{Mor}
+\DeclareMathOperator{\Exp}{Exp}
+\DeclareMathOperator{\Syl}{Syl}
+\newcommand{\ob}{\overline}
+\DeclareMathOperator{\ord}{ord}
+\DeclarePairedDelimiter{\gen}{\langle}{\rangle} % generator
+%\newcommand*\quot[2]{{^{\textstyle #1}\Big/_{\textstyle #2}}}
+\newcommand*\quot[2]{{#1}/{#2}}
+\newcommand\bij{\lhook\joinrel\twoheadrightarrow}
+\newcommand\toone{\hookrightarrow}
+\newcommand\onto{\twoheadrightarrow}
+\newcommand\acts{\curvearrowright}
+\newcommand\revacts{\curvearrowleft}
+
+% cycle group \cycle{1,2,3} => (1 2 3)
+\ExplSyntaxOn
+\NewDocumentCommand{\cycle}{ O{\;} m }
+ {
+  (
+  \alec_cycle:nn { #1 } { #2 }
+  )
+ }
+
+\seq_new:N \l_alec_cycle_seq
+\cs_new_protected:Npn \alec_cycle:nn #1 #2
+ {
+  \seq_set_split:Nnn \l_alec_cycle_seq { , } { #2 }
+  \seq_use:Nn \l_alec_cycle_seq { #1 }
+ }
+\ExplSyntaxOff
+
+\newcommand\Div{\,\big|\,}
+\newcommand\nDiv{\,\big\not|\,}
+\newcommand\relmiddle[1]{\mathrel{}\middle#1\mathrel{}}
+\newcommand{\RNum}[1]{\uppercase\expandafter{\romannumeral #1\relax}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\renewcommand{\proofname}{\bf pf:}
+\newtheoremstyle{mystyle}% custom style
+  {6pt}{15pt}%      top and bottom margin
+  {}%               content style
+  {}%               indent
+  {\bf}%            head style
+  {.}%              after head
+  {1em}%            distance between head and content
+  {}%               Theorem head spec (can be left empty, meaning 'normal')
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{formula}{Formula}
+\newtheorem{conclusion}{Conclusion}
+\newtheorem{lemma}{Lemma}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\theoremstyle{definition}
+\newtheorem{example}{Example}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+
+\theoremstyle{plain}
+\newtheorem{proposition}{Proposition}
+
+\DeclareMathOperator*{\freeprod}{\raisebox{-0.4ex}{\scalebox{2}{$\ast$}}\!}
+\newcommand{\gid}{\mathfrak{G}}
+
+\makeatletter
+\newcommand{\proofpart}[1]{%
+  \par
+  \addvspace{\medskipamount}%
+  \noindent\emph{(#1)}\par\nobreak
+  \addvspace{\smallskipamount}%
+  \@afterheading
+}
+\makeatother
+\title{Purely inseparable extensions}
+\date{}
+
+\begin{document}
+  \maketitle
+  \vspace*{-2.5cm}
+
+  First we recap some results we've already learned.
+  \begin{definition}
+    A field $K$ is {\bf perfect} if either $\Char K = 0$, or $\Char K = p > 0$ and $K = K^p$.
+  \end{definition}
+
+  \begin{proposition}
+    Every algebraic extension of a perfect field is separable.
+  \end{proposition}
+
+
+  So if $\Char K = 0$, then every algebraic extension $L/K$ is separable.
+  Since the topic today is purely ``inseparable'' extension, through out this handout
+  we shall assume every field $K$ has positive characteristic $p$.
+
+  Also recall that an example given in class:
+
+  \begin{proposition} \label{prop:p-power-is-mono}
+    If $\Char K = p$, then $\tau = x \mapsto x^p$ is a monomorphism.
+  \end{proposition}
+
+  So from this proposition we know that if $a \not\in K$, then $a^p \not\in K^p$.
+
+  \begin{proposition}
+    The polynomial $x^p - b$ is irreducible over $K$ if $b \not\in K^p$.
+  \end{proposition}
+
+
+  Now we start from giving the definition of a purely inseparable extension.
+
+  \begin{definition}
+    Let $K$ be a field with $\Char K = p > 0$. Let $L/K$ be an extension.
+
+    \begin{itemize}
+      \item An element $\alpha \in L$ is {\bf purely inseparable} over $K$ if
+        there exists a power $q = p^n$ such that $\alpha^q \in F$.
+      \item The extension $F/K$ is said to be {\bf purely inseparable} if and only if
+        every element of $F$ is purely inseparable over $K$.
+    \end{itemize}
+  \end{definition}
+
+  The definition emerges from an observation of inseparable irreducible polynomials.
+
+  \begin{proposition} \label{prop:sep-polynomial}
+    Let $f(x)$ be an irreducible polynomial over a field $K$, and assume $\Char K = p$.
+    Then there is a unique integer $k \geq 0$ and a unique irreducible separable polynomial
+    $f_{\text{sep}}(x)$ such that $f(x) = f_\text{sep}\big(x^{p^k}\big)$.
+
+    \begin{proof}
+      Since $f(x)$ is separable, $f'(x) = 0$ and thus we know that
+      \[ f(x) = a_{mp} \, x^{mp}  + a_{(m-1)p} \, x^{(m-1)p} + \dots + a_p x^p + a_0 \]
+      So we could write $f(x) = f_1(x^p)$. Similarly if $f_1$ is still inseparable, we could
+      write $f_2(x) = f_1(x^p)$. Continue this process and eventually we would get an separable
+      polynomial $f_k(x)$. and thus
+      \[ f(x) = f_1(x^p) = f_2 \big( x^{p^2} \big) = \dots
+        = f_k \big( x^{p^k} \big) \defeq f_\text{sep}\big( x^{p^k} \big) \]
+    \end{proof}
+  \end{proposition}
+
+  \begin{definition}
+    We then define the {\bf separable degree} of a polynomial to be $\deg_s f \defeq \deg f_\text{sep}$ and
+    the {\bf inseparable degree} of a ploynomial to be $\deg_i f \defeq p^k$.
+  \end{definition}
+
+  \begin{proposition} \label{prop:multiplicity-insep}
+    An irreducible polynomial $f$ has $\deg_s f$ distinct roots, each of them has multiplicity $\deg_i f$
+    in its splitting field.
+    That is, if $n = \deg_s f,\  m = \deg_i f$, then in the splitting field of $f$,
+    \[ f(x) = (x - \alpha_1)^m (x - \alpha_2)^m \dotsm (x - \alpha_n)^m \]
+
+    \begin{proof}
+      By proposition~\ref{prop:sep-polynomial}, we could assume $f(x) = f_\text{sep}\big(x^{p^k}\big)$,
+      and $f(\alpha) = 0$ implies $f_\text{sep}\big(\alpha^{p^k}\big) = 0$. Also, the map $x \mapsto x^{p^k}$
+      is 1-1 by proposition~\ref{prop:p-power-is-mono}, hence $f$ and $f_\text{sep}$ has the same number of
+      roots.
+
+      Since $f_\text{sep}$ is separable, it has $n = \deg f_\text{sep} = \deg_s f$
+      distinct roots, so we could write write
+      \[ f_\text{sep}(x) =
+        \big(x - \alpha_1^{p^k}\big) \big(x - \alpha_2^{p^k}\big) \dotsm \big(x - \alpha_n^{p^k}\big), \]
+      and thus
+      \[ f(x) = f_\text{sep}\big( x^{p^k} \big) =
+        \Big(x^{p^k} - \alpha_1^{p^k}\Big) \Big(x^{p^k} - \alpha_2^{p^k}\Big) \dotsm \Big(x^{p^k}- \alpha_n^{p^k}\Big)
+        = \big(x - \alpha_1\big)^{p^k} \big(x - \alpha_2\big)^{p^k} \dotsm \big(x - \alpha_n\big)^{p^k} \]
+
+    \end{proof}
+  \end{proposition}
+
+  \begin{lemma} \label{lemma:stack-of-pure-ext}
+    If $K \subseteq M \subseteq L$, then $M/K$ and $L/M$ are purely inseparable extensions
+    if and only if $L / K$ is purely inseparable.
+    \begin{proof}
+      ``$\Leftarrow$'': Trivial.
+
+      ``$\Rightarrow$'':
+      Let $\Char K = p$, then for any $\alpha \in F$, exists $p$-power $q_1$ such that
+      $\alpha^{q_1} \in M$. Similarly exists $p$-power $q_2$ such that $(\alpha^{q_1})^{q_2} \in K$.
+      Since $q = q_1 q_2$ is also a power of $p$, $(\alpha^{q_1})^{q_2} = \alpha^q \in K$
+      implies that $L/K$ is purely inseparable.
+    \end{proof}
+  \end{lemma}
+
+  \begin{lemma} \label{lemma:building-tower}
+    Let $L/K$ be a finite purely inseparable field extension such that $\Char K = p$.
+    Then there exists a sequence of elements $\alpha_1, \dots, a_n \in L$ such that
+    \[ K \subset K(\alpha_1) \subset K(\alpha_1, \alpha_2) \subset \dots \subset K(\alpha_1, \alpha_2, \dots, \alpha_n) \]
+    and each $\alpha_i^p$ is an element in $K(\alpha_1, \dots, \alpha_{i-1})$ which
+    does not have a $p$-root in it.
+
+    \begin{proof}
+      By induction on $n = [L: K]$. $n = 1$ is trivial, so assume $n > 1$.
+      Choose $\beta \in L \setminus K$, and assume $r$ is the least positive integer
+      such that $\beta^{p^r} \in K$. Let $\alpha \defeq \beta^{p^{r-1}}$, then $\alpha \not\in K$
+      and $\alpha^p \in K$. By proposition~\ref{prop:p-power-is-mono}, $\alpha^p$ is not a $p$-power
+      of an element in $K$. Also by lemma~\ref{lemma:stack-of-pure-ext}, $L / K(\alpha_1)$
+      is a pure inseparable extension with degree less then $n$, thus by induction the prove is completed.
+    \end{proof}
+  \end{lemma}
+
+
+  \begin{lemma} \label{lemma:decomp-of-insep}
+    Let $L/K$ be an algebraic field extension. Then there exists an unique
+    subextension $K \subseteq L_{\text{sep}} \subseteq L$ such that $L_{\text{sep}}/K$
+    is separable and $L/L_{\text{sep}}$ is purely inseparable.
+
+    \begin{proof}
+      Assume that $\Char K = p$. Let $L_{\text{sep}} \defeq \{ \alpha \in L : \alpha \text{ is separable}\}$,
+      then $L_{\text{sep}}$ is a subfield since if $\alpha, \beta$ are separable over $K$, then $K(\alpha, \beta)/K$
+      is also separable.
+
+      Given $\alpha \in L$, by proposition~\ref{prop:sep-polynomial} we know that the minimal
+      polynomial of $\alpha$ could be written as $m_{\alpha, K} = f_\text{sep}\big(x^{p^k}\big)$,
+      where $f_\text{sep}$ is irreducible and separable. Thus $x^{p^k} \in L_\text{sep}$ and
+      hence $L/L_\text{sep}$ is purely inseparable.
+    \end{proof}
+  \end{lemma}
+
+  \begin{definition}
+    Since $L_\text{sep}$ is unique, it is well-posed to define the following.
+    \begin{enumerate}
+      \item $[L: K]_s \defeq [L_\text{sep} : K]$ is the separable degree of $L$ over $K$.
+      \item $[L: K]_i \defeq [L : L_\text{sep}]$ is the inseparable degree of $L$ over $K$.
+    \end{enumerate}
+  \end{definition}
+
+  One may notice that for an extension $L/K$, $M \defeq \{ \alpha : \alpha \text{ purely inseparable over } K\}$
+  is also a subextension, and wonder if $L/M$ would then be separable. The answer is negative as
+  the following gives a counter example.
+
+  \begin{example}
+    Consider $K = \Fb_p(x, y)$ and $L = K(\alpha)$ be a root of the polynomial $f = t^{p^2} + x t^p + y$.
+    Then $f$ is irreducible, since $f$ is irreducible in $\Fb_p[x, y][t] = \Fb_p[x, y, t]$ and
+    we could then use the Gauss' Lemma. Then since $\alpha$ is inseparable, but $\alpha^p$
+    is separable, so $[L: K] = p^2$ and $[L: K]_s = [L: K]_i = p$.
+
+    We claim that no element in $L \setminus K$ is purely inseparable by
+    proving that $L_\text{sep}$ is the unique intermediate field between $L$ and $K$.
+    Let $M \neq L_\text{sep}$ be another field such that $K \subsetneq M \subsetneq L$. If $[M: K]_s = p$,
+    then since $L_\text{sep}$ contains all separable element, it would then force $M = L_\text{sep}$,
+    so $[M: K]_s = 1$, which implies that $[M: K]_i = p$ and thus $M/K$ is purely inseparable.
+
+    Now $L/M$ could not be purely inseparable, or else lemma~\ref{lemma:stack-of-pure-ext} would
+    force $L/K$ to be purely inseparable, thus $L/M$ is separable. Also, $L = M(\alpha)$,
+    so the minimal polynomial $g = m_{\alpha, M}$ must be separable. Let $L'$ be the splitting
+    field of $f$ over $M$, then $g$ has $p$ distinct roots in $L'$ since $\deg g = p$ and $g \mid f$.
+    By proposition~\ref{prop:multiplicity-insep}, $f$ also has $p$ distinct roots, each with multiplicity
+    $p$, hence we have $f(x) = g(x)^p$. Then we know that $g(x) = t^p + \beta t + \gamma$, where
+    $\beta^p = x$ and $\gamma^p = y$. Since $g(x) \in M[x]$, we have $\beta, \gamma \in M$.
+    But $K(\beta, \gamma)$ is an extension with degree $p^2$, and contained in $M$,
+    an extension with degree $p$, which leads to an contradiction.
+
+    Thus there are no intermediate field other then $L_\text{sep}$. Since $L/K$ is not purely
+    inseparable, there is no element in $L$ that is purely inseparable over $K$.
+  \end{example}
+
+  \begin{lemma}
+    Let $L/K$ be a finite extension, and $\overline{K}$ be an algebraic closure of $K$.
+    Then $[L: K]_s = \abs{\Mor(L/K, \overline{K})}$.
+
+    \begin{proof}
+      If $L/K$ is purely inseparable, then by lemma~\ref{lemma:building-tower}, we could write
+      $L = K(\alpha_1, \alpha_2, \dots, \alpha_n)$ such that the minimal polynomial of $\alpha_i$
+      over $K_{i-1} \defeq K(\alpha_1, \dots, \alpha_{i-1})$ is $x^p - \alpha_i^p$.
+      This polynomial has only one reapeted root in $\overline{K}$, thus if $\tau: K_{i-1} \to \overline{K}$,
+      there is only one extension $\sigma: K_i \to \overline{K}$. Hence
+      for each monomorphism $\tau: K \to \overline{K}$, there is only one extension $\sigma: L \to \overline{K}$.
+
+      Now for the general case, by lemma~\ref{lemma:decomp-of-insep}, there is a subextension
+      $L_\text{sep}$ such that $L_\text{sep} / K$ is separable and $L / L_\text{sep}$ is purely inseparable.
+      We know that $\abs{\Mor(L_\text{sep}/K), \overline{K}} = [L_\text{sep}: K]$, and by the
+      first paragraph we know that $\abs{\Mor(L/K, \overline{K})} = \abs{\Mor(L_\text{sep}/K, \overline{K})}
+      = [L_\text{sep}: K] = [L: K]_s$.
+    \end{proof}
+  \end{lemma}
+
+\end{document}
