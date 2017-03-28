@@ -434,7 +434,7 @@
     inseparable, there is no element in $L$ that is purely inseparable over $K$.
   \end{example}
 
-  \begin{lemma}
+  \begin{lemma} \label{lemma:number-of-ext-equal-sep-deg}
     Let $L/K$ be a finite extension, and $\overline{K}$ be an algebraic closure of $K$.
     Then $[L: K]_s = \abs{\Mor(L/K, \overline{K})}$.
 
@@ -453,5 +453,104 @@
       = [L_\text{sep}: K] = [L: K]_s$.
     \end{proof}
   \end{lemma}
+
+  \begin{lemma}
+    Given two algebraic extensions $L/M$ and $M/K$, then
+    \[ [L: K]_s = [L: M]_s [M:K]_s \quad \mathrm{and} \quad [L: K]_i = [L: M]_i [M: K]_i \]
+
+    \begin{proof}[Proof assuming \({[L: K]}\) is finite]
+      Let $\overline{L}$ be the algebraic closure of $L$, since $K \subseteq M \subseteq L$,
+      we know that $\overline{L}$ is also the algebraic closure of $M$ and $K$.
+      By lemma~\ref{lemma:number-of-ext-equal-sep-deg}, there are $[M: K]_s$ monomorphism
+      $\tau :: M \to \overline{L}$ that fixes $K$, and each of them has $[L: M]_s$ extensions
+      $\sigma :: L \to \overline{L}$. So there are totally $[M: K]_s [L: M]_s$ monomorphisms
+      from $L$ to $\overline{L}$ that fixes $K$, and this number should equal $[L: K]_s$,
+      thus $[M: K]_s [L: M]_s = [L: K]_s$. Also,
+      \[ [L: K]_i = \frac{[L: K]}{[L: K]_s} = \frac{[L: M]_{\ }}{[L: M]_s}\frac{[M: K]_{\ }}{[M: K]_s} =
+        [L: M]_i [M: K]_i \]
+    \end{proof}
+  \end{lemma}
+
+  \begin{definition}
+    Given a field $K$, if $L/K$ is an algebraic extension such that $L/K$ is perfect
+    and is the minimal one which has this property, then we called $L$ a {\bf perfect closure} of $K$.
+    Formally, if $F/K$ is any other perfect algebraic extension, then there is an embedding $L \hookrightarrow K$.
+  \end{definition}
+
+  \begin{proposition} \label{prop:perfect-closure-exists}
+    Perfect closure exists and is unique up to isomorphism. Explicitly, the perfect closure of $K$ is
+    $K_p \defeq \{ \alpha \in \overline{K} \mid \alpha \text{ is purely inseparable over } K \}$
+    where $\overline{K}$ is the algebraic closure of $K$.
+
+    \begin{proof}
+      First, $K_\text{p}$ is a field since the product/division of two purely inseparable element
+      is still purely inseparable, and since $(\alpha \pm \beta)^{p^n} = \alpha^{p^n} \pm \beta^{p^n}$,
+      $K_\text{p}$ is indeed a field. Also $K_\text{p}$ is perfect, since if $\alpha \in K_\text{p}$,
+      then its $p$th root $\alpha^{1/p} \in \overline{P}$ satisfied $\big(\alpha^{1/p}\big)^{p^{n+1}} =
+      \alpha^{p^n}$, thus is purely inseparable and is contained in $K_\text{p}$.
+
+      If $F/K$ is another perfect algebraic extension, pick an embedding
+      $\overline{K} \hookrightarrow \overline{F}$, then for any $\alpha \in K_\text{p}$,
+      $\alpha^{p^n} \in K$ for some $n$, but since $K \subseteq F$ and $F = F^{p^n}$, $\alpha^{p^n}$
+      has a $p^n$ root in $F$ and we know it is $\alpha$, so $K_\text{p} \subseteq F$.
+      Notice that this embedding from $K_\text{p}$ to $F$ is unique. Since
+      for any $\alpha \in K_\text{p}$, $\alpha^{p^n} \in K$ for some $n$.
+      Then the embedding $\varphi$ must map $\varphi(\alpha)$ to the $p^n$th root of $\varphi(\alpha^{p^n})$
+      which is fixed since $K$ is contained in both $\overline{K}$ and $\overline{F}$.
+      By the fact that $p^n$th root of an element is unique, $\varphi(\alpha)$ is then determined.
+      Hence uniqueness of the perfect closure is proved.
+    \end{proof}
+  \end{proposition}
+
+  \begin{lemma} \label{lemma:perfect-closure-char}
+    $L$ is a perfect closure of $K$ if and only if $L$ contains $K$ and that $L$ is perfect and
+    purely inseparable.
+
+    \begin{proof}
+      By prop~\ref{prop:perfect-closure-exists}, since perfect closure is unique,
+      we know that the perfect closure is purely inseparable by its construction.
+
+      Now if $L/K$ is perfect and purely inseparable, then by the minimality of $K_\text{p}$,
+      there is an embedding $K_\text{p} \hookrightarrow L$. So $L/K_\text{p}$ is purely inseparable
+      since $L/K$ is purely inseparable, and is also separable since $K_\text{p}$ is perfect.
+      Hence $L = K_\text{p}$.
+    \end{proof}
+  \end{lemma}
+
+  \begin{proposition} \label{prop:alg-ext-of-perfect-is-perfect}
+    If $K$ is perfect, then any algebraic extension $L/K$ is perfect.
+
+    \begin{proof}
+      For any $\alpha \in L$, consider the polynomial $f(x) = x^p - \alpha$ and let $\beta$ be a
+      root of it. If $f$ irreducible, Then $f \mid m_{\beta, K}$, but any irreducible polynomial in a perfect field
+      is separable, hence $f$ separable which leads to an contradiction. Thus we conclude that $f$ is
+      reducible, so $\alpha$ has a $p$ root and therefore $L^p = L$.
+    \end{proof}
+  \end{proposition}
+
+  \begin{lemma}
+    Let $L/K$ be any algebraic extension inside $\overline{K}$, then $L K_\text{p}$ is
+    the perfect closure of $K$ inside $\overline{K}$.
+
+    \begin{proof}
+      $L K_\text{p}$ is perfect since $K_\text{p}$ is perfect and then proposition~\ref{prop:alg-ext-of-perfect-is-perfect}.
+      Since every element in $L K_\text{p}$ could be writen as $\sum l_i k_i / \sum \lambda_i \kappa_i$ where
+      $l_i, \lambda_i \in L, \, k_i, \kappa_i \in K_\text{p}$, and the summation is finite.
+      Hence we could apply a power $p^n$ big enough such that each $k_i^{p^n} , \kappa_i^{p^n} \in K$, and
+      \[ \left( \frac{\sum l_i k_i}{\sum \lambda_i \kappa_i} \right)^{p^n} =
+        \frac{\sum l_i^{p^n} k_i^{p^n}}{\sum \lambda_i^{p^n} \kappa_i^{p^n}} \in L \]
+      Thus $L K_\text{p}$ is purely inseparable. By lemma~\ref{lemma:perfect-closure-char}, $L K_\text{p}$
+      is the perfect closure of $K$.
+    \end{proof}
+  \end{lemma}
+
+  \begin{proposition}
+    For any algebraic extension $L/K$,
+    \[ [L: K]_s = [LK_\mathrm{p}: K_\mathrm{p}] \]
+
+    \begin{proof}
+      Let $M = L_\mathrm{sep}$, then we have an extension tower $L/M/K$.
+    \end{proof}
+  \end{proposition}
 
 \end{document}
