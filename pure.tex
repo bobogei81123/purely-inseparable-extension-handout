@@ -27,6 +27,11 @@
 \usepackage{relsize}
 %\usepackage{parskip}
 \parskip=0.5em
+\usepackage{hyperref}
+\hypersetup{
+     colorlinks   = true,
+     linkcolor    = blue
+}
 
 %\usepackage{tabto}     
 %\usepackage{soul}      
@@ -216,18 +221,20 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\renewcommand{\proofname}{\bf pf:}
 \newtheoremstyle{mystyle}% custom style
-  {6pt}{15pt}%      top and bottom margin
-  {}%               content style
+  {10pt}{10pt}%      top and bottom margin
+  {\it}%               content style
   {}%               indent
   {\bf}%            head style
   {.}%              after head
   {1em}%            distance between head and content
   {}%               Theorem head spec (can be left empty, meaning 'normal')
 
+\theoremstyle{mystyle}
 \newtheorem{theorem}{Theorem}
 \newtheorem{formula}{Formula}
 \newtheorem{conclusion}{Conclusion}
 \newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
 
 \theoremstyle{remark}
 \newtheorem*{remark}{Remark}
@@ -238,8 +245,7 @@
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}
 
-\theoremstyle{plain}
-\newtheorem{proposition}{Proposition}
+%\theoremstyle{plain}
 
 \DeclareMathOperator*{\freeprod}{\raisebox{-0.4ex}{\scalebox{2}{$\ast$}}\!}
 \newcommand{\gid}{\mathfrak{G}}
@@ -277,12 +283,11 @@
     If $\Char K = p$, then $\tau = x \mapsto x^p$ is a monomorphism.
   \end{proposition}
 
-  So from this proposition we know that if $a \not\in K$, then $a^p \not\in K^p$.
+  From this proposition we know that if $a \not\in K$, then $a^p \not\in K^p$.
 
-  \begin{proposition}
+  \begin{proposition} \label{prop:p-power-is-irreducible}
     The polynomial $x^p - b$ is irreducible over $K$ if $b \not\in K^p$.
   \end{proposition}
-
 
   Now we start from giving the definition of a purely inseparable extension.
 
@@ -316,9 +321,32 @@
   \end{proposition}
 
   \begin{definition}
-    We then define the {\bf separable degree} of a polynomial to be $\deg_s f \defeq \deg f_\text{sep}$ and
+    By the proposition above, it is well-posed to
+    define the {\bf separable degree} of a polynomial to be $\deg_s f \defeq \deg f_\text{sep}$ and
     the {\bf inseparable degree} of a ploynomial to be $\deg_i f \defeq p^k$.
-  \end{definition}
+  \end{definition} \smallskip
+
+  \begin{lemma} \label{lemma:purely-inseparable-min-poly}
+    If $\alpha$ is purely inseparable over $K$, then its minimal polynomial has form
+    $x^{p^k} - \beta$.
+
+    \begin{proof}
+      Let $k$ be the smallest integer satisfied $\alpha^{p^k} = \beta \in K$,
+      then $\beta^{1/p} = \alpha^{p^{k-1}} \not\in K$, so by
+      proposition~\ref{prop:p-power-is-irreducible}, $\alpha^{p^k} - \beta$
+      is irreducible. Thus $m_{\alpha, K} = x^{p^k} - \beta$.
+    \end{proof}
+  \end{lemma}
+
+  \begin{lemma} \label{lemma:both-sep-and-pure-insep-inside}
+    If $\alpha$ is both separable and purely inseparable over $K$, then $\alpha \in K$.
+
+    \begin{proof}
+      Let $k$ be the smallest integer satisfied $\alpha^{p^k} \in K$, then by
+      \ref{lemma:purely-inseparable-min-poly}, $\alpha$ has minimal polynomial $x^{p^k} - \beta$,
+      which is inseparable if $k > 0$, thus $k = 0$ and $\alpha \in K$.
+    \end{proof}
+  \end{lemma}
 
   \begin{proposition} \label{prop:multiplicity-insep}
     An irreducible polynomial $f$ has $\deg_s f$ distinct roots, each of them has multiplicity $\deg_i f$
@@ -328,15 +356,17 @@
 
     \begin{proof}
       By proposition~\ref{prop:sep-polynomial}, we could assume $f(x) = f_\text{sep}\big(x^{p^k}\big)$,
-      and $f(\alpha) = 0$ implies $f_\text{sep}\big(\alpha^{p^k}\big) = 0$. Also, the map $x \mapsto x^{p^k}$
-      is 1-1 by proposition~\ref{prop:p-power-is-mono}, hence $f$ and $f_\text{sep}$ has the same number of
-      roots.
-
+      and $f(\alpha) = 0$ implies $f_\text{sep}\big(\alpha^{p^k}\big) = 0$.
       Since $f_\text{sep}$ is separable, it has $n = \deg f_\text{sep} = \deg_s f$
       distinct roots, so we could write write
       \[ f_\text{sep}(x) =
         \big(x - \alpha_1^{p^k}\big) \big(x - \alpha_2^{p^k}\big) \dotsm \big(x - \alpha_n^{p^k}\big), \]
-      and thus
+
+      So $f(x) = f_\text{sep}(x^p)$ is the product of factors $\big(x^{p^k} - {\alpha_i}^{p^k} \big)$,
+      and these factors has root , namely $\alpha_i$, in the splitting field.
+      Also, the map $x \mapsto x^{p^k}$
+      is 1-1 by proposition~\ref{prop:p-power-is-mono}, hence $f$ and $f_\text{sep}$ has the same number of
+      roots. Thus,
       \[ f(x) = f_\text{sep}\big( x^{p^k} \big) =
         \Big(x^{p^k} - \alpha_1^{p^k}\Big) \Big(x^{p^k} - \alpha_2^{p^k}\Big) \dotsm \Big(x^{p^k}- \alpha_n^{p^k}\Big)
         = \big(x - \alpha_1\big)^{p^k} \big(x - \alpha_2\big)^{p^k} \dotsm \big(x - \alpha_n\big)^{p^k} \]
@@ -351,7 +381,7 @@
       ``$\Leftarrow$'': Trivial.
 
       ``$\Rightarrow$'':
-      Let $\Char K = p$, then for any $\alpha \in F$, exists $p$-power $q_1$ such that
+      Let $\Char K = p$, then for any $\alpha \in F$ there exists $p$-power $q_1$ such that
       $\alpha^{q_1} \in M$. Similarly exists $p$-power $q_2$ such that $(\alpha^{q_1})^{q_2} \in K$.
       Since $q = q_1 q_2$ is also a power of $p$, $(\alpha^{q_1})^{q_2} = \alpha^q \in K$
       implies that $L/K$ is purely inseparable.
@@ -406,9 +436,10 @@
   the following gives a counter example.
 
   \begin{example}
-    Consider $K = \Fb_p(x, y)$ and $L = K(\alpha)$ be a root of the polynomial $f = t^{p^2} + x t^p + y$.
+    Consider $K = \Fb_p(x, y)$ and $L = K(\alpha)$ be a root of the polynomial $f(t) = t^{p^2} + x t^p + y$.
     Then $f$ is irreducible, since $f$ is irreducible in $\Fb_p[x, y][t] = \Fb_p[x, y, t]$ and
-    we could then use the Gauss' Lemma. Then since $\alpha$ is inseparable, but $\alpha^p$
+    we could then use the Gauss' Lemma to state it is irreducible in $\Fb_p(x, y)[t]$.
+    Now $\alpha$ is inseparable, but $\alpha^p$
     is separable, so $[L: K] = p^2$ and $[L: K]_s = [L: K]_i = p$.
 
     We claim that no element in $L \setminus K$ is purely inseparable by
@@ -424,11 +455,11 @@
     By proposition~\ref{prop:multiplicity-insep}, $f$ also has $p$ distinct roots, each with multiplicity
     $p$, hence we have $f(x) = g(x)^p$. Then we know that $g(x) = t^p + \beta t + \gamma$, where
     $\beta^p = x$ and $\gamma^p = y$. Since $g(x) \in M[x]$, we have $\beta, \gamma \in M$.
-    But $K(\beta, \gamma)$ is an extension with degree $p^2$, and contained in $M$,
-    an extension with degree $p$, which leads to an contradiction.
+    But $K(\beta, \gamma)$ is an extension with degree $p^2$, and contained in $M$
+    which is an extension with degree $p$, an contradiction.
 
     Thus there are no intermediate field other then $L_\text{sep}$. Since $L/K$ is not purely
-    inseparable, there is no element in $L$ that is purely inseparable over $K$.
+    inseparable, there is no element in $L \setminus K$ that is purely inseparable over $K$.
   \end{example}
 
   \begin{lemma} \label{lemma:number-of-ext-equal-sep-deg}
@@ -463,7 +494,7 @@
       $\sigma :: L \to \overline{L}$. So there are totally $[M: K]_s [L: M]_s$ monomorphisms
       from $L$ to $\overline{L}$ that fixes $K$, and this number should equal $[L: K]_s$,
       thus $[M: K]_s [L: M]_s = [L: K]_s$. Also,
-      \[ [L: K]_i = \frac{[L: K]}{[L: K]_s} = \frac{[L: M]_{\ }}{[L: M]_s}\frac{[M: K]_{\ }}{[M: K]_s} =
+      \[ [L: K]_i = \frac{[L: K]_{\ }}{[L: K]_s} = \frac{[L: M]_{\ }}{[L: M]_s}\frac{[M: K]_{\ }}{[M: K]_s} =
         [L: M]_i [M: K]_i \]
     \end{proof}
   \end{proposition}
@@ -480,16 +511,16 @@
     where $\overline{K}$ is the algebraic closure of $K$.
 
     \begin{proof}
-      First, $K_\text{p}$ is a field since the product/division of two purely inseparable element
-      is still purely inseparable, and since $(\alpha \pm \beta)^{p^n} = \alpha^{p^n} \pm \beta^{p^n}$,
-      $K_\text{p}$ is indeed a field. Also $K_\text{p}$ is perfect, since if $\alpha \in K_\text{p}$,
+      First, $K_\text{p}$ is a field by the fact that the product/division of two purely inseparable element
+      is still purely inseparable and $(\alpha \pm \beta)^{p^n} = \alpha^{p^n} \pm \beta^{p^n}$.
+      Also $K_\text{p}$ is perfect, since if $\alpha \in K_\text{p}$,
       then its $p$th root $\alpha^{1/p} \in \overline{P}$ satisfied $\big(\alpha^{1/p}\big)^{p^{n+1}} =
       \alpha^{p^n}$, thus is purely inseparable and is contained in $K_\text{p}$.
 
       If $F/K$ is another perfect algebraic extension, pick an embedding
       $\overline{K} \hookrightarrow \overline{F}$, then for any $\alpha \in K_\text{p}$,
-      $\alpha^{p^n} \in K$ for some $n$, but since $K \subseteq F$ and $F = F^{p^n}$, $\alpha^{p^n}$
-      has a $p^n$ root in $F$ and we know it is $\alpha$, so $K_\text{p} \subseteq F$.
+      $\alpha^{p^n} \in K$ for some $n$, but since $K \subseteq F$ and $F$ perfect, $\alpha^{p^n}$
+      has a $p^n$th root in $F$ and we know it is $\alpha$, so $K_\text{p} \subseteq F$.
       Notice that this embedding from $K_\text{p}$ to $F$ is unique. Since
       for any $\alpha \in K_\text{p}$, $\alpha^{p^n} \in K$ for some $n$.
       Then the embedding $\varphi$ must map $\varphi(\alpha)$ to the $p^n$th root of $\varphi(\alpha^{p^n})$
@@ -510,7 +541,7 @@
       Now if $L/K$ is perfect and purely inseparable, then by the minimality of $K_\text{p}$,
       there is an embedding $K_\text{p} \hookrightarrow L$. So $L/K_\text{p}$ is purely inseparable
       since $L/K$ is purely inseparable, and is also separable since $K_\text{p}$ is perfect.
-      Hence $L = K_\text{p}$.
+      Hence by lemma~\ref{lemma:both-sep-and-pure-insep-inside}, $L = K_\text{p}$.
     \end{proof}
   \end{lemma}
 
@@ -532,8 +563,8 @@
     \begin{proof}
       $L K_\text{p}$ is perfect since $K_\text{p}$ is perfect and then lemma~\ref{lemma:alg-ext-of-perfect-is-perfect}.
       Since every element in $L K_\text{p}$ could be writen as $\sum l_i k_i / \sum \lambda_i \kappa_i$ where
-      $l_i, \lambda_i \in L, \, k_i, \kappa_i \in K_\text{p}$, and the summation is finite.
-      Hence we could apply a power $p^n$ big enough such that each $k_i^{p^n} , \kappa_i^{p^n} \in K$, and
+      $l_i, \lambda_i \in L, \, k_i, \kappa_i \in K_\text{p}$ and the summation is finite,
+      we could apply a power $p^n$ big enough such that each $k_i^{p^n} , \kappa_i^{p^n} \in K$, and
       \[ \left( \frac{\sum l_i k_i}{\sum \lambda_i \kappa_i} \right)^{p^n} =
         \frac{\sum l_i^{p^n} k_i^{p^n}}{\sum \lambda_i^{p^n} \kappa_i^{p^n}} \in L \]
       Thus $L K_\text{p}$ is purely inseparable. By lemma~\ref{lemma:perfect-closure-char}, $L K_\text{p}$
@@ -573,7 +604,8 @@
 
       Finally, for any algebraic extension $L/K$, let $M \defeq L_\text{sep}$, then $L / M$
       is purely inseparable. But then $L \Kp / M \Kp$ is also a purely inseparable extension
-      with $M \Kp$ being perfect. By the fact that perfect fields are always separable,
+      with $M \Kp$ being perfect. By the fact that extension of perfect fields are always separable
+      (lemma~\ref{lemma:alg-ext-of-perfect-is-perfect}),
       and $L \Kp / M \Kp$ being both separable and purely inseparable,
       we conclude that $L \Kp = M \Kp$, and thus $[L: K]_s = [M: K] = [M \Kp : \Kp] = [L \Kp: \Kp]$.
     \end{proof}
@@ -594,7 +626,7 @@
 
     \begin{proof}
       Clearly $L \Ks$ is separable.
-      Since $K_\text{s}$ contains all separable elements in $\overline{K}$, by proposition~\label{prop:decomp-of-insep}
+      Since $K_\text{s}$ contains all separable elements in $\overline{K}$, by proposition~\ref{prop:decomp-of-insep}
       we know that $\overline{K}$ is purely inseparable over $\Ks$, and thus purely inseparable over $L \Ks$.
       So $L \Ks$ has no non-trivial separable extension, hence $L\Ks$ is the separable closure of $L$.
     \end{proof}
