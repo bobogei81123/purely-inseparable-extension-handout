@@ -269,12 +269,9 @@
     Every algebraic extension of a perfect field is separable.
   \end{proposition}
 
-
   So if $\Char K = 0$, then every algebraic extension $L/K$ is separable.
-  Since the topic today is purely ``inseparable'' extension, through out this handout
+  Since the topic today is purely ``inseparable'' extension, throughout this handout
   we shall assume every field $K$ has positive characteristic $p$.
-
-  Also recall that an example given in class:
 
   \begin{proposition} \label{prop:p-power-is-mono}
     If $\Char K = p$, then $\tau = x \mapsto x^p$ is a monomorphism.
@@ -379,7 +376,7 @@
   \end{lemma}
 
 
-  \begin{lemma} \label{lemma:decomp-of-insep}
+  \begin{proposition} \label{prop:decomp-of-insep}
     Let $L/K$ be an algebraic field extension. Then there exists an unique
     subextension $K \subseteq L_{\text{sep}} \subseteq L$ such that $L_{\text{sep}}/K$
     is separable and $L/L_{\text{sep}}$ is purely inseparable.
@@ -394,7 +391,7 @@
       where $f_\text{sep}$ is irreducible and separable. Thus $x^{p^k} \in L_\text{sep}$ and
       hence $L/L_\text{sep}$ is purely inseparable.
     \end{proof}
-  \end{lemma}
+  \end{proposition}
 
   \begin{definition}
     Since $L_\text{sep}$ is unique, it is well-posed to define the following.
@@ -446,7 +443,7 @@
       there is only one extension $\sigma: K_i \to \overline{K}$. Hence
       for each monomorphism $\tau: K \to \overline{K}$, there is only one extension $\sigma: L \to \overline{K}$.
 
-      Now for the general case, by lemma~\ref{lemma:decomp-of-insep}, there is a subextension
+      Now for the general case, by proposition~\ref{prop:decomp-of-insep}, there is a subextension
       $L_\text{sep}$ such that $L_\text{sep} / K$ is separable and $L / L_\text{sep}$ is purely inseparable.
       We know that $\abs{\Mor(L_\text{sep}/K), \overline{K}} = [L_\text{sep}: K]$, and by the
       first paragraph we know that $\abs{\Mor(L/K, \overline{K})} = \abs{\Mor(L_\text{sep}/K, \overline{K})}
@@ -454,7 +451,7 @@
     \end{proof}
   \end{lemma}
 
-  \begin{lemma}
+  \begin{proposition} \label{prop:final-prop}
     Given two algebraic extensions $L/M$ and $M/K$, then
     \[ [L: K]_s = [L: M]_s [M:K]_s \quad \mathrm{and} \quad [L: K]_i = [L: M]_i [M: K]_i \]
 
@@ -469,7 +466,7 @@
       \[ [L: K]_i = \frac{[L: K]}{[L: K]_s} = \frac{[L: M]_{\ }}{[L: M]_s}\frac{[M: K]_{\ }}{[M: K]_s} =
         [L: M]_i [M: K]_i \]
     \end{proof}
-  \end{lemma}
+  \end{proposition}
 
   \begin{definition}
     Given a field $K$, if $L/K$ is an algebraic extension such that $L/K$ is perfect
@@ -517,7 +514,7 @@
     \end{proof}
   \end{lemma}
 
-  \begin{proposition} \label{prop:alg-ext-of-perfect-is-perfect}
+  \begin{lemma} \label{lemma:alg-ext-of-perfect-is-perfect}
     If $K$ is perfect, then any algebraic extension $L/K$ is perfect.
 
     \begin{proof}
@@ -526,14 +523,14 @@
       is separable, hence $f$ separable which leads to an contradiction. Thus we conclude that $f$ is
       reducible, so $\alpha$ has a $p$ root and therefore $L^p = L$.
     \end{proof}
-  \end{proposition}
+  \end{lemma}
 
-  \begin{lemma}
+  \begin{lemma} \label{lemma:perfect-closure-of-ext}
     Let $L/K$ be any algebraic extension inside $\overline{K}$, then $L K_\text{p}$ is
-    the perfect closure of $K$ inside $\overline{K}$.
+    the perfect closure of $L$ inside $\overline{K}$.
 
     \begin{proof}
-      $L K_\text{p}$ is perfect since $K_\text{p}$ is perfect and then proposition~\ref{prop:alg-ext-of-perfect-is-perfect}.
+      $L K_\text{p}$ is perfect since $K_\text{p}$ is perfect and then lemma~\ref{lemma:alg-ext-of-perfect-is-perfect}.
       Since every element in $L K_\text{p}$ could be writen as $\sum l_i k_i / \sum \lambda_i \kappa_i$ where
       $l_i, \lambda_i \in L, \, k_i, \kappa_i \in K_\text{p}$, and the summation is finite.
       Hence we could apply a power $p^n$ big enough such that each $k_i^{p^n} , \kappa_i^{p^n} \in K$, and
@@ -544,13 +541,95 @@
     \end{proof}
   \end{lemma}
 
-  \begin{proposition}
+  \newcommand*{\Kp}{K_\mathrm{p}}
+  \newcommand*{\Ks}{K_\mathrm{s}}
+  \begin{proposition} \label{prop:separable-deg-equal-perfect-closure-deg}
     For any algebraic extension $L/K$,
     \[ [L: K]_s = [LK_\mathrm{p}: K_\mathrm{p}] \]
 
     \begin{proof}
-      Let $M = L_\mathrm{sep}$, then we have an extension tower $L/M/K$.
+      First we prove that if $M/K$ is separable, then $[M: K] = [MK_\mathrm{p}: K_\mathrm{p}]$.
+      Assuming that $[M: K] < \infty$. Then there is an sequence of extension
+      \[ K = K_0 \subseteq K_1 \subseteq \dots \subseteq K_n = M \]
+      with $K_i = K_{i-1}(\alpha_i)$ and $K_i / K_{i-1}$ separable. We have
+      \[ K_0 \Kp \subseteq K_1 \Kp \subseteq \dots \subseteq K_n \Kp \]
+      and $K_i \Kp = (K_{i-1} \Kp)(\alpha_i)$. By lemma~\ref{lemma:perfect-closure-of-ext},
+      $K_i \Kp$ is the perfect closure of $K_i$. Thus by multiplicativity of field degree
+      in extension tower, it is enough to prove the case $M = K(\alpha)$.
+
+      Now since $K \subset \Kp$, $m_{\alpha, \Kp} \mid m_{\alpha, K}$, so if we could
+      prove $f = m_{\alpha, K}$ is irreducible over $\Kp[x]$ then $[K(\alpha): K] = [\Kp(\alpha): \Kp]$.
+      Let $\beta_1, \beta_2, \dots, \beta_n$ be all the roots of $f$. If $f = gh$ in $\Kp[x]$
+      such that $g, h$ are monic, then $g$ is a product of some $(x - \beta_i)$, and
+      we could see that the coefficients of $g$ lies in $K(\beta_1, \dots, \beta_i)$.
+      But since $f$ separable, each $\beta_i$ is separable and thus these coefficients are
+      also separable. However, since $g \in \Kp[x]$ these coefficients are also purely inseparable,
+      hence they all lie in $K$. By the fact that $f$ is irreducible over $K[x]$, we know
+      that $g = 1 \text{ or } f$, and in both cases $f$ is irreducible over $\Kp[x]$.
+
+      Thus we've proved that $[M: K] = [M \Kp: \Kp]$, now if $[M: K] = \infty$, then
+      for any $n > 0, n \in \Nb$, we could find an subextension $M'/K$ such that $M'/K > n$,
+      since $M'/K$ separable, we have $[M': K] = [M' \Kp: \Kp] < [M \Kp: \Kp]$, thus $[M \Kp: \Kp] = \infty$.
+
+      Finally, for any algebraic extension $L/K$, let $M \defeq L_\text{sep}$, then $L / M$
+      is purely inseparable. But then $L \Kp / M \Kp$ is also a purely inseparable extension
+      with $M \Kp$ being perfect. By the fact that perfect fields are always separable,
+      and $L \Kp / M \Kp$ being both separable and purely inseparable,
+      we conclude that $L \Kp = M \Kp$, and thus $[L: K]_s = [M: K] = [M \Kp : \Kp] = [L \Kp: \Kp]$.
     \end{proof}
   \end{proposition}
+
+  For the inseparable degree, we have a similar result.
+
+  \begin{definition}
+    Given a field $K$, define $\Ks$ to be
+    $\Ks \defeq \{ \alpha \in \overline{K} \mid \alpha \text{ is separable over } K \}$.
+    It is easy to see that $\Ks$ is the largest separable extension over $K$, thus
+    $\Ks$ is called the {\bf separable closure} of $K$.
+  \end{definition}
+
+  \begin{lemma} \label{lemma:separable-closure-of-ext}
+    Let $L/K$ be any algebraic extension inside $\overline{K}$, then $L \Ks$ is
+    the separable closure of $L$ inside $\overline{K}$.
+
+    \begin{proof}
+      Clearly $L \Ks$ is separable.
+      Since $K_\text{s}$ contains all separable elements in $\overline{K}$, by proposition~\label{prop:decomp-of-insep}
+      we know that $\overline{K}$ is purely inseparable over $\Ks$, and thus purely inseparable over $L \Ks$.
+      So $L \Ks$ has no non-trivial separable extension, hence $L\Ks$ is the separable closure of $L$.
+    \end{proof}
+  \end{lemma}
+
+  \begin{proposition}
+    For any algebraic extension $L/K$,
+    \[ [L: K]_i = [L \Ks: \Ks] \]
+
+    \begin{proof}
+      Follow the same step in proposition~\ref{prop:separable-deg-equal-perfect-closure-deg},
+      we only need to prove the case where $L = K(\alpha)$ and $L/K$ is a purely inseparable extension.
+      Similarly, what we need to prove is that $m_{\alpha, K}$ is also irreducible in $\Ks$.
+      Since $\alpha$ purely inseparable over $K$, assume $m_{\alpha, K} = x^{p^n} - \beta$
+      such that $\beta \not\in K^p$. If $m_{\alpha, K}$ is reducible over $\Ks$, then
+      $\beta$ must have a $p$th root, say $\gamma$ in $\Ks$, so $\gamma$ is purely inseparable over $K$,
+      but $\gamma \in \Ks$ so $\gamma$ is also separable, hence $\gamma \in K \implies \beta \in K^p$
+      which leads to an contradiction, thus $[L: K] = [L \Ks: \Ks]$ in this case.
+
+      For the general case, assume $L/K$ is any algebraic extension. Let $M = L_\text{sep}$,
+      then $M/K$ is separable, so $M \subseteq \Ks$ and thus $\Ks$ is also the separable closure of $M$.
+      Since $L/M$ purely inseparable, we have $[L: K]_i = [L: M] = [L \Ks: \Ks]$.
+    \end{proof}
+  \end{proposition}
+
+  We could finally give a complete proof to the general case in proposition~\ref{prop:final-prop}.
+
+  \begin{proof}[Proof of proposition~\ref{prop:final-prop}]
+    Notice that $L_\mathrm{p} = L \Kp, M_\mathrm{p} = M \Kp$ and similarly
+    $L_\mathrm{s} = L \Ks, M_\mathrm{s} = M \Ks$, thus
+    \[ [L: K]_s = [L_\mathrm{p}: K_\mathrm{p}] = 
+      [L_\mathrm{p}: M_\mathrm{p}][M_\mathrm{p}: K_\mathrm{p}] = [L: M]_s [M: K]_s \]
+    and
+    \[ [L: K]_i = [L_\mathrm{s}: K_\mathrm{s}] = 
+      [L_\mathrm{s}: M_\mathrm{s}][M_\mathrm{s}: K_\mathrm{s}] = [L: M]_i [M: K]_i \]
+  \end{proof}
 
 \end{document}
